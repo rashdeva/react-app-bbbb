@@ -2,18 +2,18 @@
 
 import { createFileRoute } from '@tanstack/react-router';
 import { AssistantRuntimeProvider } from '@assistant-ui/react';
-import { useChatRuntime, AssistantChatTransport } from '@assistant-ui/react-ai-sdk';
 import { useAccount as useWagmiAccount } from 'wagmi';
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 import { YieldFarmingHeader } from '@/components/yield-farming/header';
 import { YieldFarmingThread } from '@/components/yield-farming/thread';
 import { useAppStore } from '@/lib/store';
+import { useAIClient } from '@/lib/use-ai-client';
 
 export const Route = createFileRoute('/')({ component: YieldFarmingApp });
 
 function YieldFarmingApp() {
   const { address, isConnected } = useWagmiAccount();
-  const { setConnectedAddress, mockBalances, positions } = useAppStore();
+  const { setConnectedAddress } = useAppStore();
 
   // Update store when wallet connection changes
   useEffect(() => {
@@ -24,21 +24,8 @@ function YieldFarmingApp() {
     }
   }, [address, isConnected, setConnectedAddress]);
 
-  // Create assistant runtime with wallet context
-  const runtime = useChatRuntime({
-    transport: useMemo(
-      () =>
-        new AssistantChatTransport({
-          api: '/api/chat',
-          body: {
-            walletAddress: address || null,
-            mockBalances: mockBalances || [],
-            positions: positions || [],
-          },
-        }),
-      [address, mockBalances, positions]
-    ),
-  });
+  // Create client-side AI runtime
+  const runtime = useAIClient(address || null);
 
   return (
     <AssistantRuntimeProvider runtime={runtime}>
