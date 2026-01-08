@@ -6,11 +6,7 @@ import {
   PromptInputActions,
   PromptInputTextarea,
 } from '@/components/prompt-kit/prompt-input'
-import {
-  Message,
-  MessageAvatar,
-  MessageContent,
-} from '@/components/prompt-kit/message'
+import { Message, MessageContent } from '@/components/prompt-kit/message'
 import { PromptSuggestion } from '@/components/prompt-kit/prompt-suggestion'
 import { Button } from '@/components/ui/button'
 import { useAppStore } from '@/lib/store'
@@ -422,16 +418,56 @@ export function YieldFarmingThread() {
             </PromptSuggestion>
 
             <ConnectButton.Custom>
-              {({ openConnectModal, mounted }) => {
-                if (!mounted) return null
+              {({
+                account,
+                chain,
+                openAccountModal,
+                openChainModal,
+                openConnectModal,
+                authenticationStatus,
+                mounted,
+              }) => {
+                const ready = mounted && authenticationStatus !== 'loading'
+                const connected =
+                  ready &&
+                  account &&
+                  chain &&
+                  (!authenticationStatus ||
+                    authenticationStatus === 'authenticated')
+
+                if (!ready) return null
+                if (!connected) {
+                  return (
+                    <PromptSuggestion
+                      variant="default"
+                      className="shrink-0 md:ml-auto"
+                      disabled={isLoading}
+                      onClick={openConnectModal}
+                    >
+                      Connect wallet
+                    </PromptSuggestion>
+                  )
+                }
+                if (chain.unsupported) {
+                  return (
+                    <PromptSuggestion
+                      variant="outline"
+                      className="shrink-0 md:ml-auto"
+                      disabled={isLoading}
+                      onClick={openChainModal}
+                    >
+                      Wrong network
+                    </PromptSuggestion>
+                  )
+                }
                 return (
                   <PromptSuggestion
-                    variant="default"
+                    variant="outline"
                     className="shrink-0 md:ml-auto"
                     disabled={isLoading}
-                    onClick={openConnectModal}
+                    onClick={openAccountModal}
                   >
-                    Connect wallet
+                    Wallet: {account.displayName}
                   </PromptSuggestion>
                 )
               }}

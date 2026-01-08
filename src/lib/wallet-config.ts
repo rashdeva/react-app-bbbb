@@ -1,4 +1,8 @@
 import { getDefaultConfig } from '@rainbow-me/rainbowkit';
+import {
+  injectedWallet,
+  walletConnectWallet,
+} from '@rainbow-me/rainbowkit/wallets';
 import { bsc } from 'wagmi/chains';
 import { http } from 'viem';
 
@@ -26,8 +30,14 @@ const bscWithCustomRpc = {
 export const wagmiConfig = getDefaultConfig({
   appName: 'Yield Farming Assistant',
   projectId: import.meta.env.VITE_WALLETCONNECT_PROJECT_ID || 'YOUR_PROJECT_ID',
+  wallets: [
+    {
+      groupName: 'Recommended',
+      wallets: [injectedWallet, walletConnectWallet],
+    },
+  ],
   chains: [bscWithCustomRpc],
-  ssr: true, // Enable SSR for TanStack Start
+  ssr: false,
 });
 
 // Custom theme for RainbowKit matching base-maia style

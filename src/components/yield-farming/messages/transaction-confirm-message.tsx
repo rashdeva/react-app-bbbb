@@ -68,13 +68,13 @@ export function TransactionConfirmProvider({
   )
 
   const handleConfirm = useCallback(() => {
-    if (!isConnected || disabled) return
+    if (!isConnected || disabled || isPending) return
     sendTransaction({
       to: fakeTo,
       value: 0n,
       data: fakeData,
     })
-  }, [disabled, fakeData, fakeTo, isConnected, sendTransaction])
+  }, [disabled, fakeData, fakeTo, isConnected, isPending, sendTransaction])
 
   const value: TransactionConfirmContextValue = {
     strategyName,
