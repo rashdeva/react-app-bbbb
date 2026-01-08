@@ -1,10 +1,9 @@
 import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
-import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
-import { TanStackDevtools } from '@tanstack/react-devtools'
+
 import { RainbowKitProvider } from '@rainbow-me/rainbowkit'
 import { WagmiProvider } from 'wagmi'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { wagmiConfig, rainbowKitTheme } from '@/lib/wallet-config'
+import { wagmiConfig } from '@/lib/wallet-config'
 
 import appCss from '../styles.css?url'
 import '@rainbow-me/rainbowkit/styles.css'
@@ -22,7 +21,7 @@ export const Route = createRootRoute({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'BEYB – Blockchain & AI Yield Brain',
+        title: 'BEYB – Blockchain Yield Desk',
       },
     ],
     links: [
@@ -47,17 +46,6 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           <QueryClientProvider client={queryClient}>
             <RainbowKitProvider>
               {children}
-              {/* <TanStackDevtools
-                config={{
-                  position: 'bottom-right',
-                }}
-                plugins={[
-                  {
-                    name: 'Tanstack Router',
-                    render: <TanStackRouterDevtoolsPanel />,
-                  },
-                ]}
-              /> */}
             </RainbowKitProvider>
           </QueryClientProvider>
         </WagmiProvider>

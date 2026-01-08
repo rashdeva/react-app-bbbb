@@ -10,6 +10,7 @@ import {
   DrawerTrigger,
 } from '@/components/ui/drawer';
 import { Button } from '@/components/ui/button';
+import { formatUSDCompact } from '@/lib/format';
 
 export function WalletBalance() {
   const { address, isConnected } = useAccount();
@@ -19,17 +20,6 @@ export function WalletBalance() {
   if (!isConnected || !address) {
     return null;
   }
-
-  // Format large numbers with K/M suffix
-  const formatNumber = (num: number): string => {
-    if (num >= 1_000_000) {
-      return `$${(num / 1_000_000).toFixed(2)}M`;
-    }
-    if (num >= 1_000) {
-      return `$${(num / 1_000).toFixed(2)}K`;
-    }
-    return `$${num.toFixed(2)}`;
-  };
 
   return (
     <Drawer open={open} onOpenChange={setOpen}>
@@ -44,7 +34,7 @@ export function WalletBalance() {
           {isLoading ? (
             <span className="animate-pulse">Loading...</span>
           ) : (
-            formatNumber(totalUSD)
+            formatUSDCompact(totalUSD)
           )}
         </Button>
       </DrawerTrigger>
@@ -91,7 +81,7 @@ export function WalletBalance() {
               <div className="h-7 w-28 animate-pulse rounded bg-primary/20" />
             ) : (
               <span className="font-mono text-lg font-bold">
-                {formatNumber(totalUSD)}
+                {formatUSDCompact(totalUSD)}
               </span>
             )}
           </div>
