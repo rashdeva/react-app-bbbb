@@ -1,5 +1,3 @@
-'use client';
-
 import { createFileRoute } from '@tanstack/react-router';
 import { useAccount as useWagmiAccount } from 'wagmi';
 import { useEffect } from 'react';
