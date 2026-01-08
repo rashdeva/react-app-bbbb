@@ -1,7 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { useAccount as useWagmiAccount } from 'wagmi';
 import { useEffect } from 'react';
-import { YieldFarmingHeader } from '@/components/yield-farming/header';
 import { YieldFarmingThread } from '@/components/yield-farming/thread';
 import { useAppStore } from '@/lib/store';
 

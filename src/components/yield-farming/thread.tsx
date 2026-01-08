@@ -403,10 +403,10 @@ export function YieldFarmingThread() {
 
       <div className="border-t border-border bg-black/5 p-4">
         <div className="mx-auto w-full max-w-3xl space-y-4">
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-nowrap gap-2 overflow-x-auto pb-1 md:flex-wrap md:overflow-visible">
             <PromptSuggestion
               variant="outline"
-              className='bg-white'
+              className="shrink-0 bg-white"
               disabled={isLoading}
               onClick={() => handleSuggestion('Show wallet balance')}
             >
@@ -414,7 +414,7 @@ export function YieldFarmingThread() {
             </PromptSuggestion>
             <PromptSuggestion
               variant="outline"
-              className='bg-white'
+              className="shrink-0 bg-white"
               disabled={isLoading}
               onClick={() => handleSuggestion('Show popular strategies')}
             >
@@ -427,7 +427,7 @@ export function YieldFarmingThread() {
                 return (
                   <PromptSuggestion
                     variant="default"
-                    className='ml-auto'
+                    className="shrink-0 md:ml-auto"
                     disabled={isLoading}
                     onClick={openConnectModal}
                   >

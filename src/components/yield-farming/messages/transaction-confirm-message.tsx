@@ -112,9 +112,9 @@ export function TransactionConfirmBody() {
   return (
     <div className="space-y-3">
       <div className="whitespace-pre-wrap">{details.join('\n')}</div>
-      <div className="space-y-1 text-xs font-mono text-muted-foreground">
-        <div>To: {context.fakeTo}</div>
-        <div>Data: {context.fakeData}</div>
+      <div className="space-y-1 text-xs font-mono text-muted-foreground whitespace-pre-wrap">
+        <div className="whitespace-pre-wrap">To: {context.fakeTo}</div>
+        <div className="whitespace-pre-wrap">Data: {context.fakeData}</div>
       </div>
       {!context.isConnected && (
         <div className="text-xs text-destructive">
